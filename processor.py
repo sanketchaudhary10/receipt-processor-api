@@ -4,38 +4,39 @@ import re
 from datetime import datetime
 
 def calculate_points(receipt: Receipt) -> int:
-    points = 0
+    total = 0
 
-    # Rule 1: 1 point per alphanumeric character in retailer name
-    points += len(re.findall(r'[a-zA-Z0-9]', receipt.retailer))
+    rule_a = len(re.findall(r'[a-zA-Z0-9]', receipt.retailer))
+    print("Rule a:", rule_a)
 
-    # Rule 2: 50 points if total is a round dollar amount
-    if receipt.total.endswith(".00"):
-        points += 50
+    rule_b = 50 if receipt.total.endswith(".00") else 0
+    print("Rule b:", rule_b)
 
-    # Rule 3: 25 points if total is multiple of 0.25
-    if (float(receipt.total) * 100) % 25 == 0:
-        points += 25
+    rule_c = 25 if (float(receipt.total) * 100) % 25 == 0 else 0
+    print("Rule c:", rule_c)
 
-    # Rule 4: 5 points for every 2 items
-    points += (len(receipt.items) // 2) * 5
+    rule_d = (len(receipt.items) // 2) * 5
+    print("Rule d:", rule_d)
 
-    # Rule 5: description length multiple of 3 → ceil(price * 0.2)
+    rule_e = 0
     for item in receipt.items:
         desc = item.shortDescription.strip()
         if len(desc) % 3 == 0:
-            points += math.ceil(float(item.price) * 0.2)
+            added_points = math.ceil(float(item.price) * 0.2)
+            rule_e += added_points
+    print("Rule d:", rule_d)
 
-    # Rule 6: Skip — LLM only
-
-    # Rule 7: 6 points if day is odd
     purchase_date = datetime.strptime(receipt.purchaseDate, "%Y-%m-%d")
-    if purchase_date.day % 2 == 1:
-        points += 6
+    rule_g = 6 if purchase_date.day % 2 == 1 else 0
+    print("Rule g:", rule_g)
 
-    # Rule 8: 10 points if time is between 2pm and 4pm (14:00–16:00)
     purchase_time = datetime.strptime(receipt.purchaseTime, "%H:%M")
-    if 14 <= purchase_time.hour < 16:
-        points += 10
+    rule_h = 10 if 14 <= purchase_time.hour < 16 else 0
+    print("Rule h:", rule_h)
 
-    return points
+    total = rule_a + rule_b + rule_c + rule_d + rule_e + rule_g + rule_h
+    print("Total points calculated:", total)
+
+    return total
+
+
