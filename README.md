@@ -84,6 +84,7 @@ docker run -p 8000:8000 receipt-processor-api
 
 ## Project Structure
 
+```plaintext
 receipt-processor-api/
 │
 ├── main.py            # FastAPI app & endpoints
@@ -92,6 +93,6 @@ receipt-processor-api/
 ├── requirements.txt   # Python dependencies
 ├── Dockerfile         # Docker build config
 └── README.md          # Instructions for usage and Project Overview
-
+```
 
 ## Built by Sanket Chaudhary
