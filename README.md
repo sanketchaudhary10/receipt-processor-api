@@ -24,14 +24,14 @@ A FastAPI-based web service that processes receipts and returns points based on 
 - Rule 7: 6 points if the day in the purchase date is odd.
 - Rule 8: 10 points if the time of purchase is after 2:00pm and before 4:00pm.
 
-**Features**:
+## Tech Stack:
 - Python 3.11
 - FastAPI
 - Uvicorn
 - Pydantic
 - Docker
 
-### Setup Instructions (Local)
+## Setup Instructions (Local)
 
 ## 1. Cloning the Repository
 ```bash
@@ -51,7 +51,7 @@ uvicorn main:app --reload
 ## 3. Accessing the app at: http://localhost:8000/docs
 
 
-### Run with Docker
+## Run with Docker
 
 ## 1. Build the image
 ```bash
